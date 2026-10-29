@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Ardi. From data to decisions. Too much to handle? We handle it for you. We are building Ardi in Turin with fruit growers in Piemonte.">
+<title>Ardi · From data to decisions</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232A1F17'/%3E%3Ctext x='14' y='44' font-family='Georgia,serif' font-style='italic' font-weight='600' font-size='40' fill='%23F3ECDD'%3Ea%3C/text%3E%3Ccircle cx='44' cy='40' r='5' fill='%23E2A93B'/%3E%3C/svg%3E">
+<link rel="alternate" hreflang="it" href="https://lamirahali.github.io/">
+<link rel="alternate" hreflang="en" href="https://lamirahali.github.io/en.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=DM+Sans:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  /* Ardi design system tokens: Paper (light) and Soil (dark) themes. */
+  :root{
+    --surface-paper:#F3ECDD; --surface-sand:#E9E2CC; --surface-card:#EAE1CB;
+    --ink:#2A1F17; --ink-soft:#5A4A3C; --ink-muted:#6E5E4E;
+    --clay:#B5532A; --clay-text:#A3481F; --saffron:#E2A93B; --saffron-text:#8A5A12;
+    --olive:#4F6B33; --teal:#4E7F86; --teal-text:#3F6D74; --sage:#8A9A5B; --on-accent:#F3ECDD;
+    --i1:#B5532A; --i2:#C9763D; --i3:#DB9A45; --i4:#E2A93B; --i5:#C3B05A; --i6:#95A456; --i7:#6E8443; --i8:#4F6B33; --i9:#3E5530;
+    --focus:#2A1F17; --line:#D8CCB4; --grain:.22;
+    --display:Fraunces, Georgia, serif;
+    --sans:"DM Sans", Arial, sans-serif;
+    --hand:Caveat, "Brush Script MT", cursive;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --surface-paper:#2A1F17; --surface-sand:#33271D; --surface-card:#3A2C21;
+      --ink:#F3ECDD; --ink-soft:#CDBFA8; --ink-muted:#B3A58F;
+      --clay:#D47A4C; --clay-text:#E2A93B; --saffron-text:#E2A93B;
+      --olive:#95A456; --teal:#7FA9AE; --teal-text:#7FA9AE; --on-accent:#2A1F17;
+      --focus:#E2A93B; --line:#4A3A2C; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --surface-paper:#2A1F17; --surface-sand:#33271D; --surface-card:#3A2C21;
+    --ink:#F3ECDD; --ink-soft:#CDBFA8; --ink-muted:#B3A58F;
+    --clay:#D47A4C; --clay-text:#E2A93B; --saffron-text:#E2A93B;
+    --olive:#95A456; --teal:#7FA9AE; --teal-text:#7FA9AE; --on-accent:#2A1F17;
+    --focus:#E2A93B; --line:#4A3A2C; color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--surface-paper); color:var(--ink-soft); font-family:var(--sans); font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+  /* Paper grain over every ground */
+  .grain{position:fixed; inset:0; pointer-events:none; z-index:50; opacity:var(--grain); mix-blend-mode:multiply}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .grain{mix-blend-mode:screen; opacity:.10} }
+  :root[data-theme="dark"] .grain{mix-blend-mode:screen; opacity:.10}
+
+  h1,h2,h3{font-family:var(--display); color:var(--ink); margin:0; text-wrap:balance; font-weight:500}
+  p{margin:0}
+  a{color:var(--clay-text); text-underline-offset:3px}
+  a:focus-visible,.btn:focus-visible{outline:2px solid var(--focus); outline-offset:2px; border-radius:6px}
+
+  .band{position:relative; padding:96px max(16px, env(safe-area-inset-left,0px)) 96px max(16px, env(safe-area-inset-right,0px)); overflow:hidden}
+  .band.sand{background:var(--surface-sand)}
+  .inner{max-width:1120px; margin:0 auto; position:relative}
+
+  .eyebrow{font-family:var(--sans); font-weight:700; font-size:14px; letter-spacing:.18em; text-transform:uppercase; color:var(--clay-text)}
+  .title{font-size:clamp(36px, 5.4vw, 60px); line-height:1.08; margin-top:12px}
+  .lead{font-size:clamp(18px, 2vw, 22px); line-height:1.45; color:var(--ink-soft); margin-top:18px; max-width:56ch}
+  .head{margin-bottom:48px; max-width:760px}
+
+  /* Lockup: wordmark + index strip */
+  .lockup{display:inline-flex; align-items:center; gap:14px; text-decoration:none}
+  .wordmark{font-family:var(--display); font-style:italic; font-weight:600; font-size:38px; line-height:1; color:var(--ink); letter-spacing:-.01em}
+  .wordmark b{color:var(--clay); font-weight:600}
+  .strip{display:flex; gap:3px}
+  .strip i{display:block; width:9px; height:12px; border-radius:2px}
+  .strip i:nth-child(1){background:var(--i1)} .strip i:nth-child(2){background:var(--i2)} .strip i:nth-child(3){background:var(--i3)}
+  .strip i:nth-child(4){background:var(--i4)} .strip i:nth-child(5){background:var(--i5)} .strip i:nth-child(6){background:var(--i6)}
+  .strip i:nth-child(7){background:var(--i7)} .strip i:nth-child(8){background:var(--i8)} .strip i:nth-child(9){background:var(--i9)}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .wordmark b{color:var(--saffron)} }
+  :root[data-theme="dark"] .wordmark b{color:var(--saffron)}
+
+  nav{display:flex; justify-content:space-between; align-items:center; gap:16px; padding:22px max(16px, env(safe-area-inset-left,0px)); max-width:1152px; margin:0 auto; position:relative; z-index:2}
+  nav .links{display:flex; gap:24px; font-size:15px; font-weight:500}
+  nav .links a{color:var(--ink-soft); text-decoration:none}
+  nav .links a:hover{color:var(--clay-text)}
+
+  /* Hero */
+  .hero{padding-top:40px}
+  .hero .inner{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:56px; align-items:center}
+  .pill{display:inline-block; font-weight:700; font-size:14px; padding:6px 16px; border-radius:999px}
+  .pill.prog{background:var(--saffron); color:#2A1F17}
+  .pill.prog{display:inline-flex; align-items:center; gap:10px}
+  .live{position:relative; width:10px; height:10px; flex:none}
+  .live::before,.live::after{content:""; position:absolute; inset:0; border-radius:50%; background:#B5532A}
+  @media (prefers-reduced-motion: no-preference){
+    .live::after{animation:pulse 1.8s ease-out infinite}
+    @keyframes pulse{0%{transform:scale(1); opacity:.7}100%{transform:scale(2.8); opacity:0}}
+  }
+  .hero h1{font-size:clamp(46px, 7.4vw, 92px); line-height:1.04; letter-spacing:-.02em; font-weight:600; margin-top:22px}
+  .hero h1 em{font-style:italic; font-weight:500; color:var(--ink)}
+  .squiggle{display:block; width:min(300px, 70%); height:auto; margin-top:10px}
+  .hero .lead{max-width:44ch}
+  .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:32px}
+  .btn{font-family:var(--sans); font-weight:700; font-size:15px; text-decoration:none; padding:13px 24px; border-radius:999px; display:inline-block}
+  .btn.primary{background:var(--clay); color:var(--on-accent)}
+  .btn.ghost{border:2px solid var(--ink); color:var(--ink); padding:11px 22px}
+  .btn:hover{filter:brightness(1.06)}
+  .slogan{margin-top:28px; font-size:13px; font-weight:500; color:var(--ink-muted)}
+
+  .lens{position:relative; justify-self:center; width:100%; max-width:440px}
+  .lens svg{width:100%; height:auto; display:block}
+  .note{font-family:var(--hand); font-weight:600; font-size:36px; line-height:1.1; color:var(--clay); transform:rotate(-4deg); text-align:center; margin-top:-6px}
+  .contour{position:absolute; width:560px; height:560px; opacity:.35; pointer-events:none}
+  .hero .contour{right:-220px; top:-200px}
+
+  /* Problem tags */
+  .tags{display:flex; flex-wrap:wrap; gap:14px 12px; align-items:center; max-width:900px}
+  .tag{background:var(--surface-card); color:var(--ink); border-radius:999px; padding:12px 22px; font-family:var(--display); font-weight:600; font-size:clamp(20px,2.4vw,26px)}
+  .tag small{font-family:var(--sans); font-weight:400; font-size:15px; color:var(--ink-soft); margin-left:8px}
+  .tag:nth-child(1){transform:rotate(-2deg)} .tag:nth-child(2){transform:rotate(1.5deg) translateY(6px)} .tag:nth-child(3){transform:rotate(-1deg)}
+  .tag:nth-child(4){transform:rotate(2deg) translateY(-4px)} .tag:nth-child(5){transform:rotate(-1.5deg) translateY(4px)}
+  .tag.water{outline:2px dashed var(--teal); outline-offset:-2px}
+  .closer{margin-top:44px; font-family:var(--display); font-style:italic; font-size:clamp(22px,2.6vw,30px); color:var(--ink); max-width:34ch}
+
+  /* Pillars */
+  .pillars{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px}
+  .pillar{background:var(--surface-card); border-radius:6px; border-top:10px solid var(--c, var(--clay)); padding:24px 26px 28px; display:grid; gap:8px; align-content:start}
+  .pillar .n{font-family:var(--display); font-style:italic; font-weight:600; font-size:36px; line-height:1; color:var(--clay-text)}
+  .pillar h3{font-size:26px; font-weight:600; line-height:1.15}
+  .pillar p{font-size:16px; color:var(--ink-soft)}
+
+  /* How */
+  .how{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; align-items:start}
+  .sources{list-style:none; margin:0; padding:0}
+  .sources li{display:flex; justify-content:space-between; gap:16px; padding:16px 0; border-bottom:1px solid var(--line)}
+  .sources li:first-child{border-top:1px solid var(--line)}
+  .sources b{font-family:var(--display); font-weight:600; font-size:21px; color:var(--ink)}
+  .sources span{font-size:14px; color:var(--ink-muted); text-align:right; padding-top:5px}
+  .steps{list-style:none; margin:0; padding:0; display:grid; gap:14px}
+  .steps li{background:var(--surface-card); border-radius:24px; padding:22px 26px; display:grid; grid-template-columns:52px minmax(0,1fr); gap:12px; align-items:start}
+  .steps .k{font-family:var(--display); font-style:italic; font-weight:600; font-size:36px; line-height:1; color:var(--clay-text)}
+  .steps h3{font-size:22px; font-weight:600}
+  .steps p{font-size:16px; margin-top:4px}
+
+  /* Team */
+  .team{display:grid; grid-template-columns:minmax(0,1fr); gap:24px; max-width:760px}
+  .person{background:var(--surface-card); border-radius:24px; padding:30px; display:grid; gap:10px; align-content:start}
+  .person .role{font-weight:700; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--olive)}
+  .person h3{font-size:32px; font-weight:600}
+  .person p{font-size:16.5px}
+  .partner{margin-top:22px; font-size:15.5px; color:var(--ink-muted)}
+
+  /* Statement: the one saffron section */
+  .statement{background:var(--saffron); color:#2A1F17}
+  .statement .eyebrow{color:#2A1F17}
+  .statement h2{color:#2A1F17; font-size:clamp(34px,5vw,60px); line-height:1.08; font-weight:600; margin-top:12px; max-width:20ch}
+  .statement h2 em{font-weight:500}
+  .statement p{color:#2A1F17; font-size:19px; max-width:56ch; margin-top:18px}
+  .statement .btn{background:#2A1F17; color:#F3ECDD; margin-top:30px}
+  .statement .mail{display:block; margin-top:14px; font-size:15px; font-weight:500; user-select:all}
+  .statement .btn:focus-visible{outline-color:#2A1F17}
+
+  footer .inner{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px}
+  footer{padding:32px max(16px, env(safe-area-inset-left,0px)) 40px}
+  footer .lockup .wordmark{font-size:26px}
+  footer .meta{font-size:13px; font-weight:500; color:var(--ink-muted)}
+  footer .meta a{color:var(--ink-muted)}
+
+  @media (max-width:900px){
+    .hero .inner, .how{grid-template-columns:minmax(0,1fr)}
+    .pillars{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    .band{padding-top:72px; padding-bottom:72px}
+    .lens{max-width:360px}
+  }
+  @media (max-width:560px){
+    .pillars{grid-template-columns:minmax(0,1fr)}
+    nav .links{display:none}
+    .tag small{display:block; margin:2px 0 0}
+    .tag{border-radius:24px}
+    .contour{width:380px; height:380px}
+  }
+  .lang{display:flex; gap:4px; font-size:14px; font-weight:700; margin-left:20px}
+  .lang a{color:var(--ink-muted); text-decoration:none; padding:4px 8px; border-radius:999px}
+  .lang a[aria-current]{background:var(--surface-card); color:var(--ink)}
+  .navr{display:flex; align-items:center}
+</style>
+</head>
+<body>
+<svg class="grain" aria-hidden="true" width="100%" height="100%"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.16 0 0 0 0 0.12 0 0 0 0 0.09 0.9 0 0 0 -0.1"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>
+
+<nav aria-label="Main">
+  <a class="lockup" href="#" aria-label="ardi, home">
+    <span class="wordmark">ardi<b>.</b></span>
+    <span class="strip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+  </a>
+  <div class="navr">
+  <div class="links">
+    <a href="#approach">Approach</a>
+    <a href="#how">How it will work</a>
+    <a href="#team">Team</a>
+    <a href="#call">Book a call</a>
+  </div>
+  <div class="lang" aria-label="Language"><a href="index.html" lang="it">IT</a><a href="en.html" aria-current="page" lang="en">EN</a></div>
+  </div>
+</nav>
+
+<header class="band hero">
+  <svg class="contour" viewBox="0 0 400 400" aria-hidden="true"><g fill="none" stroke="var(--clay)" stroke-width="1.6">
+    <path d="M200,60 C290,58 352,120 348,206 C344,292 270,346 190,340 C108,334 52,272 58,190 C64,110 120,62 200,60Z"/>
+    <path d="M200,96 C268,96 316,142 312,206 C308,268 256,308 194,304 C132,300 92,254 96,194 C100,136 140,96 200,96Z"/>
+    <path d="M202,132 C246,132 280,164 276,206 C272,246 238,272 196,270 C156,268 128,238 132,198 C136,160 162,132 202,132Z"/>
+    <path d="M202,166 C228,166 246,184 244,208 C242,230 222,244 198,242 C176,240 162,224 164,202 C166,182 180,166 202,166Z"/>
+    <path d="M200,22 C310,20 392,100 386,210 C380,318 290,384 186,378 C82,372 14,292 22,186 C30,86 96,24 200,22Z"/>
+  </g></svg>
+  <div class="inner">
+    <div>
+      <span class="pill prog"><span class="live" aria-hidden="true"></span>Being built · looking for pilot farms</span>
+      <h1>Too much to handle? <em>We handle it for you.</em></h1>
+      <svg class="squiggle" viewBox="0 0 360 60" aria-hidden="true"><path d="M4,40 C40,10 60,10 70,34 C78,54 52,58 54,36 C56,14 92,8 110,34 C126,56 100,60 102,38 C104,16 140,8 158,34 C174,56 148,60 150,38 C152,16 188,8 206,34 C222,56 196,60 198,38 C200,16 236,8 254,34 C270,56 244,60 246,38 C248,16 290,10 356,30" fill="none" stroke="var(--clay)" stroke-width="5" stroke-linecap="round"/></svg>
+      <p class="lead">Farming means handling a lot at once: yields, soil, water, diseases, inputs. We are building Ardi to handle it with you, through a holistic, data-driven approach, so you can farm with peace of mind.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://cal.com/lamia-rahali-fy4m8u/15min" target="_blank" rel="noopener">Book a call</a>
+        <a class="btn ghost" href="#approach">See the approach</a>
+      </div>
+    </div>
+
+    <figure class="lens" style="margin:0">
+      <svg viewBox="0 0 400 400" role="img" aria-labelledby="lens-t">
+        <title id="lens-t">Illustration: fields and orchard rows seen from a satellite, inside a lens</title>
+        <defs><clipPath id="c"><circle cx="200" cy="200" r="170"/></clipPath></defs>
+        <circle cx="200" cy="200" r="190" fill="none" stroke="var(--ink-muted)" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/>
+        <g clip-path="url(#c)">
+          <rect x="0" y="0" width="400" height="400" fill="var(--surface-sand)"/>
+          <path d="M20,40 L190,20 L210,150 L30,170Z" fill="var(--olive)"/>
+          <path d="M200,18 L390,30 L380,130 L216,148Z" fill="var(--saffron)"/>
+          <path d="M28,180 L212,158 L222,262 L40,286Z" fill="var(--sage)"/>
+          <path d="M220,156 L384,140 L378,250 L230,262Z" fill="var(--clay)"/>
+          <path d="M44,296 L224,272 L236,390 L50,398Z" fill="var(--i6)"/>
+          <path d="M234,270 L378,258 L372,392 L246,396Z" fill="var(--olive)"/>
+          <g fill="var(--i9)" opacity=".85">
+            <circle cx="60" cy="200" r="7"/><circle cx="86" cy="197" r="7"/><circle cx="112" cy="194" r="7"/><circle cx="138" cy="191" r="7"/><circle cx="164" cy="188" r="7"/><circle cx="190" cy="185" r="7"/>
+            <circle cx="62" cy="226" r="7"/><circle cx="88" cy="223" r="7"/><circle cx="114" cy="220" r="7"/><circle cx="140" cy="217" r="7"/><circle cx="166" cy="214" r="7"/><circle cx="192" cy="211" r="7"/>
+            <circle cx="64" cy="252" r="7"/><circle cx="90" cy="249" r="7"/><circle cx="116" cy="246" r="7"/><circle cx="142" cy="243" r="7"/><circle cx="168" cy="240" r="7"/><circle cx="194" cy="237" r="7"/>
+          </g>
+          <g fill="var(--i8)" opacity=".9">
+            <circle cx="262" cy="292" r="6"/><circle cx="284" cy="290" r="6"/><circle cx="306" cy="288" r="6"/><circle cx="328" cy="286" r="6"/><circle cx="350" cy="284" r="6"/>
+            <circle cx="264" cy="316" r="6"/><circle cx="286" cy="314" r="6"/><circle cx="308" cy="312" r="6"/><circle cx="330" cy="310" r="6"/><circle cx="352" cy="308" r="6"/>
+            <circle cx="266" cy="340" r="6"/><circle cx="288" cy="338" r="6"/><circle cx="310" cy="336" r="6"/><circle cx="332" cy="334" r="6"/><circle cx="354" cy="332" r="6"/>
+          </g>
+          <path d="M0,150 C80,140 120,170 200,152 C280,134 320,150 400,136" fill="none" stroke="var(--teal)" stroke-width="7" stroke-linecap="round"/>
+        </g>
+        <circle cx="200" cy="200" r="170" fill="none" stroke="var(--ink)" stroke-width="2"/>
+      </svg>
+      <p class="note">from data to decisions</p>
+    </figure>
+  </div>
+</header>
+
+<section class="band sand" aria-labelledby="pb-h">
+  <div class="inner">
+    <div class="head">
+      <div class="eyebrow">The problem</div>
+      <h2 class="title" id="pb-h">So much at once, every day.</h2>
+      <p class="lead">Many farmers don't know they have a problem until they see it. Small daily habits affect the whole farm.</p>
+    </div>
+    <div class="tags">
+      <span class="tag">Yields<small>zones that underperform, often unnoticed</small></span>
+      <span class="tag">Soil<small>fertility lost season after season</small></span>
+      <span class="tag water">Water<small>too much or too little, in the wrong place</small></span>
+      <span class="tag">Diseases<small>signs that come too late</small></span>
+      <span class="tag">Inputs<small>fertilisers and treatments where they are not needed</small></span>
+    </div>
+    <p class="closer">We want to take you by the hand, one step at a time.</p>
+  </div>
+</section>
+
+<section class="band" id="approach" aria-labelledby="ap-h">
+  <div class="inner">
+    <div class="head">
+      <div class="eyebrow">The holistic approach</div>
+      <h2 class="title" id="ap-h">One promise, six pillars.</h2>
+      <p class="lead">We look at the farm as a whole. Conservation, regenerative and sustainable agriculture: natural first, chemistry only when needed. The parts will arrive at different times, but the promise stays whole.</p>
+    </div>
+    <div class="pillars">
+      <article class="pillar" style="--c:var(--saffron)"><span class="n">01</span><h3>Higher yield</h3><p>Spot underperforming zones early and act where it pays.</p></article>
+      <article class="pillar" style="--c:var(--clay)"><span class="n">02</span><h3>Soil conservation</h3><p>Protect and rebuild soil health, season after season.</p></article>
+      <article class="pillar" style="--c:var(--teal)"><span class="n">03</span><h3>Less water</h3><p>Irrigate where and when crops actually need it.</p></article>
+      <article class="pillar" style="--c:var(--olive)"><span class="n">04</span><h3>Early disease detection</h3><p>Catch stress and disease signals before they spread.</p></article>
+      <article class="pillar" style="--c:var(--sage)"><span class="n">05</span><h3>Ecological solutions</h3><p>Natural practices first, chemistry only when needed.</p></article>
+      <article class="pillar" style="--c:var(--i9)"><span class="n">06</span><h3>Natural fertilisers</h3><p>Recommend the right organic inputs, backed by data.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="band sand" id="how" aria-labelledby="co-h">
+  <div class="inner">
+    <div class="head">
+      <div class="eyebrow">How it will work</div>
+      <h2 class="title" id="co-h">Data from the sky, experience from the field.</h2>
+      <p class="lead">We are designing Ardi together with our first farmers. Here are the sources we plan to combine and the path we have in mind.</p>
+    </div>
+    <div class="how">
+      <ul class="sources">
+        <li><b>Satellite imagery</b><span>Sentinel-1 · LiDAR · Sentinel-2 · Landsat</span></li>
+        <li><b>Weather data</b><span>rain, temperature, risk</span></li>
+        <li><b>Soil samples</b><span>fertility, organic matter</span></li>
+        <li><b>Field visits</b><span>agronomy on site</span></li>
+        <li><b>Your experience</b><span>nobody knows your farm like you</span></li>
+      </ul>
+      <ol class="steps">
+        <li><span class="k">01</span><div><h3>We get to know you.</h3><p>You tell us about your farm, your crops and what weighs on you most.</p></div></li>
+        <li><span class="k">02</span><div><h3>We look at the data.</h3><p>We combine satellite, weather, soil and visits to understand what is happening, zone by zone.</p></div></li>
+        <li><span class="k">03</span><div><h3>One clear action.</h3><p>We tell you what to do, where and when, in plain words.</p></div></li>
+        <li><span class="k">04</span><div><h3>We improve together.</h3><p>Every season we learn from the results and sharpen the advice.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="team" aria-labelledby="te-h">
+  <div class="inner">
+    <div class="head">
+      <div class="eyebrow">Who is behind it</div>
+      <h2 class="title" id="te-h">Science, brought to the field.</h2>
+    </div>
+    <div class="team">
+      <article class="person">
+        <span class="role">Founder · CEO</span>
+        <h3>Lamia Rahali</h3>
+        <p>Agronomist, with an MSc in Land and Water Resources Management (CIHEAM IAM Bari) and a PhD in Precision Agriculture applying remote sensing (Università Mediterranea di Reggio Calabria). She has worked with farmers and researchers in Morocco, Italy and the UK, including Rothamsted Research. Her work is to bridge science and the field.</p>
+      </article>
+    </div>
+    <p class="partner">The technical team is taking shape. Supported by local partners who connect us with farms in Piemonte.</p>
+  </div>
+</section>
+
+<section class="band statement" id="call" aria-labelledby="pi-h">
+  <div class="inner">
+    <div class="eyebrow">First steps · fruit growing in Piemonte</div>
+    <h2 id="pi-h">Do you grow fruit in Piemonte? <em>Let's build Ardi together.</em></h2>
+    <p>First, a call: 15 minutes to get to know each other and understand what weighs on you most. No commitment, no cost.</p>
+    <a class="btn" href="https://cal.com/lamia-rahali-fy4m8u/15min" target="_blank" rel="noopener">Book a call</a>
+    <span class="mail">Prefer to write? <a href="mailto:lamia.rahali@outlook.fr" style="color:#2A1F17">lamia.rahali@outlook.fr</a></span>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <a class="lockup" href="#" aria-label="ardi, back to top">
+      <span class="wordmark">ardi<b>.</b></span>
+      <span class="strip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    </a>
+    <span class="meta">From data to decisions. · Turin, Italy · <a href="https://www.linkedin.com/in/lamiarahali" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+</body>
+</html>
