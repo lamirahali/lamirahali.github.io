@@ -155,6 +155,7 @@
   .statement .btn{background:#2A1F17; color:#F3ECDD; margin-top:30px}
   .statement .mail{display:block; margin-top:14px; font-size:15px; font-weight:500; user-select:all}
   .statement .btn:focus-visible{outline-color:#2A1F17}
+  .statement .steps-note{font-size:16px; margin-top:14px}
 
   footer .inner{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px}
   footer{padding:32px max(16px, env(safe-area-inset-left,0px)) 40px}
@@ -217,7 +218,7 @@
       <svg class="squiggle" viewBox="0 0 360 60" aria-hidden="true"><path d="M4,40 C40,10 60,10 70,34 C78,54 52,58 54,36 C56,14 92,8 110,34 C126,56 100,60 102,38 C104,16 140,8 158,34 C174,56 148,60 150,38 C152,16 188,8 206,34 C222,56 196,60 198,38 C200,16 236,8 254,34 C270,56 244,60 246,38 C248,16 290,10 356,30" fill="none" stroke="var(--clay)" stroke-width="5" stroke-linecap="round"/></svg>
       <p class="lead">Farming means handling a lot at once: yields, soil, water, diseases, inputs. We are building Ardi to handle it with you, through a holistic, data-driven approach, so you can farm with peace of mind.</p>
       <div class="cta">
-        <a class="btn primary" href="https://cal.com/lamia-rahali-fy4m8u/15min" target="_blank" rel="noopener">Book a call</a>
+        <a class="btn primary" href="#call">Book a call</a>
         <a class="btn ghost" href="#approach">See the approach</a>
       </div>
     </div>
@@ -337,7 +338,8 @@
     <div class="eyebrow">First steps · fruit growing in Piemonte</div>
     <h2 id="pi-h">Do you grow fruit in Piemonte? <em>Let's build Ardi together.</em></h2>
     <p>First, a call: 15 minutes to get to know each other and understand what weighs on you most. No commitment, no cost.</p>
-    <a class="btn" href="https://cal.com/lamia-rahali-fy4m8u/15min" target="_blank" rel="noopener">Book a call</a>
+    <p class="steps-note">Two steps: leave your name, email, business and phone (one minute), then pick a time.</p>
+    <a class="btn" id="book" href="https://cal.com/lamia-rahali-fy4m8u/15min" target="_blank" rel="noopener">Book a call</a>
     <span class="mail">Prefer to write? <a href="mailto:lamia.rahali@outlook.fr" style="color:#2A1F17">lamia.rahali@outlook.fr</a></span>
   </div>
 </section>
@@ -351,5 +353,12 @@
     <span class="meta">From data to decisions. · Turin, Italy · <a href="https://www.linkedin.com/in/lamiarahali" target="_blank" rel="noopener">LinkedIn</a></span>
   </div>
 </footer>
+<script>
+  // Sign-up form (Tally). Paste the form ID after the form is published in Tally, e.g. "wMzx8Q".
+  // Tally saves the answers to Notion (Farmers Pipeline) and then sends people to Cal.com.
+  // While the ID is empty, the button goes straight to Cal.com.
+  var TALLY_FORM_ID = "";
+  if (TALLY_FORM_ID) { var b = document.getElementById("book"); b.href = "https://tally.so/r/" + TALLY_FORM_ID + "?lang=EN&source=Website"; b.removeAttribute("target"); }
+</script>
 </body>
 </html>

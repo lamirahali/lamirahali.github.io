@@ -155,6 +155,7 @@
   .statement .btn{background:#2A1F17; color:#F3ECDD; margin-top:30px}
   .statement .mail{display:block; margin-top:14px; font-size:15px; font-weight:500; user-select:all}
   .statement .btn:focus-visible{outline-color:#2A1F17}
+  .statement .steps-note{font-size:16px; margin-top:14px}
 
   footer .inner{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px}
   footer{padding:32px max(16px, env(safe-area-inset-left,0px)) 40px}
@@ -217,7 +218,7 @@
       <svg class="squiggle" viewBox="0 0 360 60" aria-hidden="true"><path d="M4,40 C40,10 60,10 70,34 C78,54 52,58 54,36 C56,14 92,8 110,34 C126,56 100,60 102,38 C104,16 140,8 158,34 C174,56 148,60 150,38 C152,16 188,8 206,34 C222,56 196,60 198,38 C200,16 236,8 254,34 C270,56 244,60 246,38 C248,16 290,10 356,30" fill="none" stroke="var(--clay)" stroke-width="5" stroke-linecap="round"/></svg>
       <p class="lead">Fare agricoltura significa gestire tante cose insieme: rese, suolo, acqua, malattie, input. Stiamo costruendo Ardi per occuparsene con te, con un approccio olistico e basato sui dati, così puoi lavorare con serenità.</p>
       <div class="cta">
-        <a class="btn primary" href="https://cal.com/lamia-rahali-fy4m8u/15min" target="_blank" rel="noopener">Fissiamo una call</a>
+        <a class="btn primary" href="#call">Fissiamo una call</a>
         <a class="btn ghost" href="#approccio">Scopri l'approccio</a>
       </div>
     </div>
@@ -337,7 +338,8 @@
     <div class="eyebrow">Primi passi · frutticoltura in Piemonte</div>
     <h2 id="pi-h">Hai un frutteto in Piemonte? <em>Costruiamo Ardi insieme.</em></h2>
     <p>Prima di tutto, una call: 15 minuti per conoscerci e capire cosa ti pesa di più in azienda. Senza impegno e senza costi.</p>
-    <a class="btn" href="https://cal.com/lamia-rahali-fy4m8u/15min" target="_blank" rel="noopener">Fissiamo una call</a>
+    <p class="steps-note">Due passi: lasci nome, email, azienda e telefono (un minuto), poi scegli l'orario.</p>
+    <a class="btn" id="book" href="https://cal.com/lamia-rahali-fy4m8u/15min" target="_blank" rel="noopener">Fissiamo una call</a>
     <span class="mail">Preferisci scrivere? <a href="mailto:lamia.rahali@outlook.fr" style="color:#2A1F17">lamia.rahali@outlook.fr</a></span>
   </div>
 </section>
@@ -351,5 +353,12 @@
     <span class="meta">Dai dati alle decisioni. · Torino, Italia · <a href="https://www.linkedin.com/in/lamiarahali" target="_blank" rel="noopener">LinkedIn</a></span>
   </div>
 </footer>
+<script>
+  // Sign-up form (Tally). Paste the form ID after the form is published in Tally, e.g. "wMzx8Q".
+  // Tally saves the answers to Notion (Farmers Pipeline) and then sends people to Cal.com.
+  // While the ID is empty, the button goes straight to Cal.com.
+  var TALLY_FORM_ID = "";
+  if (TALLY_FORM_ID) { var b = document.getElementById("book"); b.href = "https://tally.so/r/" + TALLY_FORM_ID + "?lang=IT&source=Website"; b.removeAttribute("target"); }
+</script>
 </body>
 </html>
