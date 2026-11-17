@@ -156,6 +156,22 @@
   .statement .mail{display:block; margin-top:14px; font-size:15px; font-weight:500; user-select:all}
   .statement .btn:focus-visible{outline-color:#2A1F17}
   .statement .steps-note{font-size:16px; margin-top:14px}
+  .signup{margin-top:26px; max-width:640px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px 16px}
+  .signup[hidden],#book[hidden]{display:none}
+  .signup label{display:grid; gap:6px; font-size:14px; font-weight:700; color:#2A1F17}
+  .signup .wide{grid-column:1 / -1}
+  .signup input[type=text],.signup input[type=email],.signup input[type=tel]{font:inherit; font-weight:400; font-size:16px; color:#2A1F17; background:#F3ECDD; border:2px solid #2A1F17; border-radius:12px; padding:11px 14px; width:100%}
+  .signup input:focus-visible{outline:3px solid #2A1F17; outline-offset:2px}
+  .signup .check{display:flex; gap:10px; align-items:flex-start; font-weight:500; font-size:15px}
+  .signup .check input{width:20px; height:20px; margin-top:2px; accent-color:#2A1F17; flex:none}
+  .signup details{font-size:14px; color:#2A1F17}
+  .signup details summary{cursor:pointer; font-weight:700; text-decoration:underline; text-underline-offset:3px}
+  .signup details p{font-size:14px; margin-top:6px; max-width:none}
+  .signup button{font-family:var(--sans); font-weight:700; font-size:15px; border:0; cursor:pointer; padding:13px 24px; border-radius:999px; background:#2A1F17; color:#F3ECDD; justify-self:start}
+  .signup button:disabled{opacity:.6; cursor:wait}
+  .signup .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden}
+  .signup .status{font-size:15px; font-weight:700; color:#2A1F17; margin:0}
+  @media (max-width:560px){ .signup{grid-template-columns:minmax(0,1fr)} }
 
   footer .inner{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px}
   footer{padding:32px max(16px, env(safe-area-inset-left,0px)) 40px}
@@ -218,7 +234,7 @@
       <svg class="squiggle" viewBox="0 0 360 60" aria-hidden="true"><path d="M4,40 C40,10 60,10 70,34 C78,54 52,58 54,36 C56,14 92,8 110,34 C126,56 100,60 102,38 C104,16 140,8 158,34 C174,56 148,60 150,38 C152,16 188,8 206,34 C222,56 196,60 198,38 C200,16 236,8 254,34 C270,56 244,60 246,38 C248,16 290,10 356,30" fill="none" stroke="var(--clay)" stroke-width="5" stroke-linecap="round"/></svg>
       <p class="lead">Fare agricoltura significa gestire tante cose insieme: rese, suolo, acqua, malattie, input. Stiamo costruendo Ardi per occuparsene con te, con un approccio olistico e basato sui dati, così puoi lavorare con serenità.</p>
       <div class="cta">
-        <a class="btn primary" href="#call">Fissiamo una call</a>
+        <a class="btn primary" href="#pilota">Fissiamo una call</a>
         <a class="btn ghost" href="#approccio">Scopri l'approccio</a>
       </div>
     </div>
@@ -340,6 +356,18 @@
     <p>Prima di tutto, una call: 15 minuti per conoscerci e capire cosa ti pesa di più in azienda. Senza impegno e senza costi.</p>
     <p class="steps-note">Due passi: lasci nome, email, azienda e telefono (un minuto), poi scegli l'orario.</p>
     <a class="btn" id="book" href="https://cal.com/lamia-rahali-fy4m8u/15min" target="_blank" rel="noopener">Fissiamo una call</a>
+    <form class="signup" id="signup" hidden novalidate>
+      <label>Nome<input type="text" name="nome" autocomplete="given-name" required maxlength="100"></label>
+      <label>Cognome<input type="text" name="cognome" autocomplete="family-name" required maxlength="100"></label>
+      <label>Email<input type="email" name="email" autocomplete="email" required maxlength="150"></label>
+      <label>Telefono<input type="tel" name="telefono" autocomplete="tel" required maxlength="40"></label>
+      <label class="wide">Nome dell'azienda agricola<input type="text" name="azienda" autocomplete="organization" required maxlength="150"></label>
+      <label class="hp" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      <label class="check wide"><input type="checkbox" name="consenso" value="si" required><span>Acconsento all'uso dei miei dati per essere contattato per la call.</span></label>
+      <details class="wide"><summary>Come usiamo i dati</summary><p>Usiamo questi dati solo per contattarti e fissare la call. Non li diamo a nessuno. Li teniamo solo finché servono per Ardi. Puoi chiedere di vederli o cancellarli quando vuoi: scrivi a lamia.rahali@outlook.fr. Titolare: Lamia Rahali, Torino.</p></details>
+      <button type="submit" class="wide">Continua e scegli l'orario</button>
+      <p class="status wide" id="signup-status" role="status" aria-live="polite"></p>
+    </form>
     <span class="mail">Preferisci scrivere? <a href="mailto:lamia.rahali@outlook.fr" style="color:#2A1F17">lamia.rahali@outlook.fr</a></span>
   </div>
 </section>
@@ -354,11 +382,27 @@
   </div>
 </footer>
 <script>
-  // Sign-up form (Tally). Paste the form ID after the form is published in Tally, e.g. "wMzx8Q".
-  // Tally saves the answers to Notion (Farmers Pipeline) and then sends people to Cal.com.
-  // While the ID is empty, the button goes straight to Cal.com.
-  var TALLY_FORM_ID = "";
-  if (TALLY_FORM_ID) { var b = document.getElementById("book"); b.href = "https://tally.so/r/" + TALLY_FORM_ID + "?lang=IT&source=Website"; b.removeAttribute("target"); }
+  // Sign-ups go to a Google Sheet through Google Apps Script, then the visitor picks a time on Cal.com.
+  // Paste the Web app URL (ends with /exec) between the quotes. While it is empty, the button goes straight to Cal.com.
+  var SHEET_URL = "";
+  var CAL_URL = "https://cal.com/lamia-rahali-fy4m8u/15min";
+  (function () {
+    if (!SHEET_URL) return;
+    var form = document.getElementById("signup"), book = document.getElementById("book"), status = document.getElementById("signup-status");
+    book.hidden = true; form.hidden = false;
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var btn = form.querySelector("button"); btn.disabled = true; status.textContent = "Invio in corso...";
+      var data = new URLSearchParams(new FormData(form)); data.append("lang", "IT");
+      fetch(SHEET_URL, { method: "POST", mode: "no-cors", body: data })
+        .then(function () { status.textContent = "Fatto. Ora scegli l'orario."; window.location.href = CAL_URL; })
+        .catch(function () {
+          btn.disabled = false; status.textContent = "Qualcosa non ha funzionato. Puoi fissare la call qui: ";
+          var a = document.createElement("a"); a.href = CAL_URL; a.textContent = "cal.com"; a.style.color = "#2A1F17"; status.appendChild(a);
+        });
+    });
+  })();
 </script>
 </body>
 </html>
